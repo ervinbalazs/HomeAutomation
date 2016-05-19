@@ -1,0 +1,256 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Home automatition</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <meta name="viewport" content="width=540px, user-scalable=true" />
+	<script src="./jquery-2.1.1.min.js"></script>
+    <script src="js1.js" type="text/javascript"></script>
+    <script>
+                
+	$(document).ready(function(){
+    
+                      
+	$("ul.accordion span.name").click(function(){
+	    var $li = $( this ).parent("li").has("ul");
+
+	    if( $li.hasClass("open")){
+		$li.find("ul").slideUp('fast', function( ){
+		    $li.removeClass("open");
+		});
+	    }
+	    else
+	    {
+		$li.addClass("open");
+		$li.find("ul").slideDown('fast');
+	    }
+	    });
+	});
+    
+    </script>
+
+<script>
+function myFunction()
+{
+alert(this.value);
+}
+</script>
+	
+	<style>
+	
+	.onoffswitch {
+    width: 100px;
+    margin: 0 auto;
+
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 0px solid #999999; border-radius: 0px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner > span {
+    display: block; float: left; position: relative; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner .onoffswitch-active {
+    padding-left: 15px;
+    background-color: #C2C2C2; color: #FFFFFF;
+}
+.onoffswitch-inner .onoffswitch-inactive {
+    padding-right: 15px;
+    background-color: #C2C2C2; color: #FFFFFF;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 40px; margin: 0px; text-align: center; 
+    border: 0px solid #999999;border-radius: 0px; 
+    position: absolute; top: 0; bottom: 0;
+}
+.onoffswitch-active .onoffswitch-switch {
+    background: #27A1CA; left: 0;
+}
+.onoffswitch-inactive .onoffswitch-switch {
+    background: #A1A1A1; right: 0;
+}
+.onoffswitch-active .onoffswitch-switch:before {
+    content: " "; position: absolute; top: 0; left: 40px; 
+    border-style: solid; border-color: #27A1CA transparent transparent #27A1CA; border-width: 15px 10px;
+}
+.onoffswitch-inactive .onoffswitch-switch:before {
+    content: " "; position: absolute; top: 0; right: 40px; 
+    border-style: solid; border-color: transparent #A1A1A1 #A1A1A1 transparent; border-width: 15px 10px;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.cd{
+	margin-top: 20px;
+}
+	
+	
+	</style>
+	
+	
+	
+	
+	
+</head>
+
+<body>
+    <h3>Ház automatizálás</h3>
+    <ul id="accordion-freebie">
+        <li>
+            <ul class="accordion">
+                <li class="close" >
+                    <span class="name">Világítás</span>
+                    <span class="notifications"></span>
+                    <ul style="display: none">
+						<li class="interactive"><input type = "range" id="piros" min="0" max="4090" value="0" step="15" oninput ="red(this.value)"><p hidden id="r"></p></li>
+                        <li class="interactive"><input type = "range" id="zold" min="0" max="4090" value="0" step="15" oninput ="green(this.value)"><p hidden id="g"></p></li>
+                        <li class="interactive"><input type = "range" id="kek" min="0" max="4090" value="0" step="15" oninput ="blue(this.value)"><p hidden id="b"></p></li>
+
+						
+                   </ul>   
+                </li>
+                <li class="close">
+                    <span class="name">AC Aljzat</span>
+                    <span class="notifications"></span>
+                    <ul style="display: none">
+                        <li class="onoff">
+							<div class="onoffswitch">
+								<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onclick ="sw(this.checked)" >
+								
+								<label class="onoffswitch-label" for="myonoffswitch">
+									<span class="onoffswitch-inner">
+									<span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+									<span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+									</span>
+								</label>
+								<p hidden id="switch"></p>
+							</div>
+						</li>
+                        <li class="interactive"><span></span></li>
+                    </ul>
+                </li>
+		<li class="close">
+                    <span class="name">Vetítővászon</span>
+                    <span class="notifications"></span>
+                    <ul style="display: none">
+                        <li class="onoff">
+						<div class="onoffswitch">
+								<button type="button" id="canvas_up" onmousedown="vf_on()" onmouseup="vf_off()">Vászon fel</button>
+								<p hidden id="canup"></p>
+							</div>
+						<div class="onoffswitch">
+								<button type="button" class="cd" id="canvas_down" onmousedown="vl_on()" onmouseup="vl_off()">Vászon le</button>
+								<p hidden id="candn"></p>
+							</div>
+							</li>
+                        <li class="interactive"><span></span></li>
+                    </ul>
+                </li>
+		
+    </ul>
+						<script>
+function red() {
+    var x = document.getElementById("piros").value;
+    document.getElementById("r").innerHTML = "voros: " + x;
+	$.ajax({
+		type: 'POST',
+		url: 'ered.php',
+		data: {  voros : x }
+
+	});
+	}
+function green() {
+   var y = document.getElementById("zold").value;
+    document.getElementById("g").innerHTML = "zld: " + y;
+		$.ajax({
+		type: 'POST',
+		url: 'ered.php',
+		data: {  zld : y }
+
+	});
+	}
+
+function blue() {
+    var z = document.getElementById("kek").value;
+    document.getElementById("b").innerHTML = "blu: " + z;
+		$.ajax({
+		type: 'POST',
+		url: 'ered.php',
+		data: {  blu : z }
+
+	});
+	}
+	
+function sw() {
+    var sww = document.getElementById("myonoffswitch").checked;
+    document.getElementById("switch").innerHTML = "kapcs: " + sww;
+		$.ajax({
+		type: 'POST',
+		url: 'ered.php',
+		data: {  kapcs : sww }
+
+	});
+	}
+	
+function vf_on() {
+    var vff = "on";
+    document.getElementById("canup").innerHTML = "canup: " + vff;
+		$.ajax({
+		type: 'POST',
+		url: 'ered.php',
+		data: {  vaszonfel : vff }
+
+	});
+	}	
+	
+function vf_off() {
+    var vff = "off";
+    document.getElementById("canup").innerHTML = "canup: " + vff;
+		$.ajax({
+		type: 'POST',
+		url: 'ered.php',
+		data: {  vaszonfel : vff }
+
+	});
+	}	
+	
+function vl_on() {
+    var vll = "on";
+    document.getElementById("candn").innerHTML = "candn: " + vll;
+		$.ajax({
+		type: 'POST',
+		url: 'ered.php',
+		data: {  vaszonle : vll }
+
+	});
+	}		
+	
+function vl_off() {
+    var vll = "off";
+    document.getElementById("canup").innerHTML = "candn: " + vll;
+		$.ajax({
+		type: 'POST',
+		url: 'ered.php',
+		data: {  vaszonle : vll }
+
+	});
+	}	
+</script>
+</body>
+</html>
